@@ -1,4 +1,4 @@
-import * as postsDao from "./posts-dao.js";
+import * as postsDao from "./posts-dao";
 
 const createPost = async (req, res) => {
   const currentUser = req.session["currentUser"];

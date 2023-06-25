@@ -1,9 +1,9 @@
 // const express = require('express')
 import express from "express";
 import cors from "cors";
-import HelloController from "./controllers/hello-controller.js";
 import UserController from "./users/users-controller.js";
-import PostsController from "./controllers/posts/posts-controller.js";
+// import postsController from "./posts/posts-controller.js";
+import MusicController from "./album/album-controller.js";
 import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
@@ -17,7 +17,7 @@ app.set("trust proxy", 1);
 app.use(
   cors({
     credentials: true,
-    origin: "https://main--shopper-gather-app.netlify.app/",
+    origin: "https://main--music-niche-web-app.netlify.app/",
     // origin: "http://localhost:3000",
   })
 );
@@ -56,8 +56,7 @@ app.use(express.json());
 
 const port = process.env.PORT || 4000;
 
-TuitsController(app);
-HelloController(app);
+MusicController(app);
 UserController(app);
 AuthController(app);
 // app.get('/hello', (req, res) => {res.send('Life is wonderful!')})
