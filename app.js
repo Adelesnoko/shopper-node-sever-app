@@ -1,46 +1,43 @@
 // const express = require('express')
-import express from 'express';
-import cors from 'cors';
-import HelloController from './controllers/hello-controller.js';
-import UserController from './users/users-controller.js';
-import TuitsController from './controllers/tuits/tuits-controller.js';
+import express from "express";
+import cors from "cors";
+import HelloController from "./controllers/hello-controller.js";
+import UserController from "./users/users-controller.js";
+import PostsController from "./controllers/posts/posts-controller.js";
 import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
 
 mongoose.connect(
-  "mongodb+srv://adelcnenes:AdelaFeng2023@cluster0.fxco84z.mongodb.net/tuiter?retryWrites=true&w=majority"
+  "mongodb+srv://adelafeng:adelshopper2023@cluster1.z1dn24e.mongodb.net/?retryWrites=true&w=majority"
 );
-// mongoose.connect("mongodb://127.0.0.1:27017/tuiter-su1-23");
 
 const app = express();
 app.set("trust proxy", 1);
 app.use(
   cors({
     credentials: true,
-    origin: "https://a6--admirable-kringle-708e3b.netlify.app",
+    origin: "https://main--shopper-gather-app.netlify.app/",
     // origin: "http://localhost:3000",
   })
 );
 app.use(
-    session({
-      secret: "any string",
-      resave: false,
-      proxy: true,
-      saveUninitialized: false,
-      cookie: {
-        sameSite: "none",
-        secure: true,
-      },
-    })
+  session({
+    secret: "any string",
+    resave: false,
+    proxy: true,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
+  })
 );
 
 // mongoose.connect("mongodb://127.0.0.1:27017/tuiter");
 // const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/tuiter'
 // mongoose.connect(CONNECTION_STRING);
 
-
-   
 // // app.use(cors());
 // app.use((req, res, next) => {
 //     const allowedOrigins = ["http://localhost:3000", "https://a6--admirable-kringle-708e3b.netlify.app"];
