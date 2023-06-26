@@ -10,12 +10,13 @@ const usersSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ["admin", "visitor", "user", "vipuser"],
-      default: "visitor",
+      default: "user",
     },
     dob: Date,
     created: { type: Date, default: Date.now },
     married: { type: Boolean, default: false },
     vipStatus: { type: Boolean, default: false },
+    loginStatus: { type: Boolean, default: false },
   },
   { collection: "users" }
 );

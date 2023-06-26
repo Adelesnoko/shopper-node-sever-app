@@ -9,7 +9,7 @@ import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
 
 mongoose.connect(
-  "mongodb+srv://adelafeng:adelshopper2023@cluster1.z1dn24e.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://adelafeng:adelshopper2023@cluster1.z1dn24e.mongodb.net/music-niche?retryWrites=true&w=majority"
 );
 
 const app = express();

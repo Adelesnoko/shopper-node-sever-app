@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
-
-const musicSchema = mongoose.Schema(
+const albumSchema = mongoose.Schema(
   {
     name: String,
-    musicId: String,
+    albumId: String,
     artistName: String,
     likes: { type: Number, default: 0 },
   },
-  { collection: "musics" }
+  { collection: "albums" }
 );
 
-export default mongoose.model("Album", musicSchema);
+export default mongoose.model("Album", albumSchema);
