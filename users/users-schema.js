@@ -9,7 +9,7 @@ const usersSchema = new mongoose.Schema(
     emial: String,
     role: {
       type: String,
-      enum: ["admin", "visitor", "user", "vipuser"],
+      enum: ["admin", "user", "vipuser"],
       default: "user",
     },
     dob: Date,
