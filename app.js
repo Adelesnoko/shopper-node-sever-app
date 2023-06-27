@@ -15,23 +15,24 @@ mongoose.connect(
 );
 
 const app = express();
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1); // for deploy
 app.use(
   cors({
     credentials: true,
-    origin: "https://main--music-niche-web-app.netlify.app/",
-    // origin: "http://localhost:3000",
+    origin: "https://main--music-niche-web-app.netlify.app/", // for deploy
+    // origin: "http://localhost:3000",   // for local
   })
 );
 app.use(
   session({
     secret: "any string",
     resave: false,
-    proxy: true,
+    proxy: true, // for deploy
     saveUninitialized: false,
     cookie: {
-      sameSite: "none",
-      secure: true,
+      // for deploy
+      sameSite: "none", // for deploy
+      secure: true, // for deploy
     },
   })
 );
