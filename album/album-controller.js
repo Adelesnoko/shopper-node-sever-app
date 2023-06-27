@@ -24,33 +24,34 @@ export default function AlbumController(app) {
   const likeAlbum = async (req, res) => {
     const albumId = req.params.albumId;
     const album = await dao.findAlbumByAlbumId(albumId);
-    let album123 = null;
+    let album_temp = null;
     if (album) {
       album.likes = album.likes + 1;
       await album.save();
-      album123 = album;
+      album_temp = album;
     } else {
       const newAlbum = await dao.createAlbum({
         ...req.body,
         albumId,
         likes: 1,
       });
-      album123 = newAlbum;
+      album_temp = newAlbum;
     }
     const currentUser = req.session["currentUser"];
     console.log("req.session", req.session);
     const userId = currentUser._id;
-    await dao.createLike(album123._id, userId);
-    res.json(album123);
+    await dao.createLike(album_temp._id, userId);
+    res.json(album_temp);
   };
 
-  // const findAlbumsILike = async (req, res) => {
-  //   const currentUser = req.session["currentUser"];
-  //   const userId = currentUser._id;
-  //   const likes = await dao.findLikesForUser(userId);
-  //   const albums = likes.map((like) => like.album);
-  //   res.json(albums);
-  // };
+  const findAlbumsILike = async (req, res) => {
+    const currentUser = req.session["currentUser"];
+    console.log("req.session", req.session);
+    const userId = currentUser._id;
+    const likes = await dao.findLikesForUser(userId);
+    const albums = likes.map((like) => like.album);
+    res.json(albums);
+  };
 
   const findLikesForAlbum = async (req, res) => {
     const id = req.params.id;
@@ -65,11 +66,59 @@ export default function AlbumController(app) {
     res.json([]);
   };
 
+  const dislikeAlbum = async (req, res) => {
+    const albumId = req.params.albumId;
+    const album = await dao.findAlbumByAlbumId(albumId);
+    let album_temp = null;
+    if (album) {
+      album.dislikes = album.dislikes + 1;
+      await album.save();
+      album_temp = album;
+    } else {
+      const newAlbum = await dao.createAlbum({
+        ...req.body,
+        albumId,
+        dislikes: 1,
+      });
+      album_temp = newAlbum;
+    }
+    const currentUser = req.session["currentUser"];
+    console.log("req.session", req.session);
+    const userId = currentUser._id;
+    await dao.createDislike(album_temp._id, userId);
+    res.json(album_temp);
+  };
+
+  const findAlbumsIDislike = async (req, res) => {
+    const currentUser = req.session["currentUser"];
+    console.log("req.session", req.session);
+    const userId = currentUser._id;
+    const dislikes = await dao.findDislikesForUser(userId);
+    const albums = dislikes.map((dislike) => dislike.album);
+    res.json(albums);
+  };
+
+  const findDislikesForAlbum = async (req, res) => {
+    const id = req.params.id;
+    const actualAlbum = await dao.findAlbumByAlbumId(id);
+    if (actualAlbum) {
+      console.log("actualAlbum", actualAlbum);
+      const dislikes = await dao.findDislikesForAlbum(actualAlbum._id);
+      const users = dislikes.map((dislike) => dislike.user);
+      res.json(users);
+      return;
+    }
+    res.json([]);
+  };
+
   app.get("/api/albums", findAllAlbums);
   app.get("/api/albums/:id", findAlbumById);
   app.get("/api/albums/albumId/:albumId", findAlbumByAlbumId);
   app.post("/api/albums", createAlbum);
   app.post("/api/albums/albumId/:albumId/like", likeAlbum);
-  // app.get("/api/albums/i/like", findAlbumsILike);
+  app.get("/api/albums/i/like", findAlbumsILike);
   app.get("/api/albums/albumId/:id/likes", findLikesForAlbum);
+  app.post("/api/albums/albumId/:albumId/dislike", dislikeAlbum);
+  app.get("/api/albums/i/dislike", findAlbumsIDislike);
+  app.get("/api/albums/albumId/:id/dislikes", findDislikesForAlbum);
 }

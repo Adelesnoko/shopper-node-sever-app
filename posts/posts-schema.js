@@ -7,7 +7,7 @@ const schema = mongoose.Schema(
     title: { type: String, default: "NA" },
     time: { type: String, default: Date.now },
     image: { type: String, default: "noImage.jpg" },
-    postContent: String,
+    post: String,
     replies: { type: Number, default: 0 },
     reposts: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },

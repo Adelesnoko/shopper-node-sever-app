@@ -6,11 +6,11 @@ const usersSchema = new mongoose.Schema(
     password: { type: String, required: true },
     firstName: String,
     lastName: String,
-    emial: String,
-    role: {
+    email: String,
+    usertype: {
       type: String,
-      enum: ["admin", "user", "vipuser"],
-      default: "user",
+      enum: ["ADMIN", "USER", "VIPUSER"],
+      default: "USER",
     },
     dob: Date,
     created: { type: Date, default: Date.now },

@@ -17,12 +17,6 @@ export const updateUser = (userId, user) =>
 
 export const deleteUser = (userId) => usersModel.deleteOne({ _id: userId });
 
-// export const findUserById = (uid) => {
-//     const index = users.findIndex((u) => u._id === uid);
-//     if (index !== -1) return users[index];
-//     return null;
-// };
-
 // export const findUserByUsername = (username) => {
 //     const index = users.findIndex((u) => u.username === username);
 //     if (index !== -1) return users[index];
