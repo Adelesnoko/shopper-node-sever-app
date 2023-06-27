@@ -19,7 +19,7 @@ app.set("trust proxy", 1); // for deploy
 app.use(
   cors({
     credentials: true,
-    origin: "https://main--music-niche-web-app.netlify.app/", // for deploy
+    origin: "https://main--music-niche-web-app.netlify.app", // for deploy
     // origin: "http://localhost:3000",   // for local
   })
 );
