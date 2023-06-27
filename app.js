@@ -19,20 +19,20 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    // origin: "https://main--music-niche-web-app.netlify.app/",
-    origin: "http://localhost:3000",
+    origin: "https://main--music-niche-web-app.netlify.app/",
+    // origin: "http://localhost:3000",
   })
 );
 app.use(
   session({
     secret: "any string",
     resave: false,
-    // proxy: true,
+    proxy: true,
     saveUninitialized: false,
-    // cookie: {
-    //   sameSite: "none",
-    //   secure: true,
-    // },
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
   })
 );
 
