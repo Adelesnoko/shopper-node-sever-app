@@ -7,30 +7,32 @@ import MusicController from "./album/album-controller.js";
 import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
+import AlbumController from "./album/album-controller.js";
+import FollowsController from "./album/follows-controller.js";
 
 mongoose.connect(
   "mongodb+srv://adelafeng:adelshopper2023@cluster1.z1dn24e.mongodb.net/music-niche?retryWrites=true&w=majority"
 );
 
 const app = express();
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 app.use(
   cors({
     credentials: true,
-    origin: "https://main--music-niche-web-app.netlify.app/",
-    // origin: "http://localhost:3000",
+    // origin: "https://main--music-niche-web-app.netlify.app/",
+    origin: "http://localhost:3000",
   })
 );
 app.use(
   session({
     secret: "any string",
     resave: false,
-    proxy: true,
+    // proxy: true,
     saveUninitialized: false,
-    cookie: {
-      sameSite: "none",
-      secure: true,
-    },
+    // cookie: {
+    //   sameSite: "none",
+    //   secure: true,
+    // },
   })
 );
 
@@ -56,9 +58,11 @@ app.use(express.json());
 
 const port = process.env.PORT || 4000;
 
-MusicController(app);
+// postsController(app);
 UserController(app);
 AuthController(app);
+AlbumController(app);
+FollowsController(app);
 // app.get('/hello', (req, res) => {res.send('Life is wonderful!')})
 // app.get('/', (req, res) => {res.send('Welcome to Full Stack Development!')})
 app.listen(process.env.PORT || 4000);

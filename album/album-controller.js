@@ -44,12 +44,25 @@ export default function AlbumController(app) {
     res.json(album123);
   };
 
-  const findAlbumsILike = async (req, res) => {
-    const currentUser = req.session["currentUser"];
-    const userId = currentUser._id;
-    const likes = await dao.findLikesForUser(userId);
-    const albums = likes.map((like) => like.album);
-    res.json(albums);
+  // const findAlbumsILike = async (req, res) => {
+  //   const currentUser = req.session["currentUser"];
+  //   const userId = currentUser._id;
+  //   const likes = await dao.findLikesForUser(userId);
+  //   const albums = likes.map((like) => like.album);
+  //   res.json(albums);
+  // };
+
+  const findLikesForAlbum = async (req, res) => {
+    const id = req.params.id;
+    const actualAlbum = await dao.findAlbumByAlbumId(id);
+    if (actualAlbum) {
+      console.log("actualAlbum", actualAlbum);
+      const likes = await dao.findLikesForAlbum(actualAlbum._id);
+      const users = likes.map((like) => like.user);
+      res.json(users);
+      return;
+    }
+    res.json([]);
   };
 
   app.get("/api/albums", findAllAlbums);
@@ -57,5 +70,6 @@ export default function AlbumController(app) {
   app.get("/api/albums/albumId/:albumId", findAlbumByAlbumId);
   app.post("/api/albums", createAlbum);
   app.post("/api/albums/albumId/:albumId/like", likeAlbum);
-  app.get("/api/albums/i/like", findAlbumsILike);
+  // app.get("/api/albums/i/like", findAlbumsILike);
+  app.get("/api/albums/albumId/:id/likes", findLikesForAlbum);
 }
